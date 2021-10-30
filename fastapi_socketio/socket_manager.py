@@ -22,10 +22,11 @@ class SocketManager:
         mount_location: str = "/ws",
         socketio_path: str = "socket.io",
         cors_allowed_origins: Union[str, list] = '*',
-        async_mode: str = "asgi"
+        async_mode: str = "asgi",
+        client_manager = None
     ) -> None:
         # TODO: Change Cors policy based on fastapi cors Middleware
-        self._sio = socketio.AsyncServer(async_mode=async_mode, cors_allowed_origins=cors_allowed_origins)
+        self._sio = socketio.AsyncServer(async_mode=async_mode, cors_allowed_origins=cors_allowed_origins, client_manager = client_manager)
         self._app = socketio.ASGIApp(
             socketio_server=self._sio, socketio_path=socketio_path
         )
